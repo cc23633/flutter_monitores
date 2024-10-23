@@ -1,0 +1,27 @@
+name: flutter_monitores
+description: Aplicativo Flutter com carrossel de cards dos monitores do DPD.
+
+# Versão do SDK Flutter
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  carousel_slider: ^4.2.1
+  firebase_core: ^2.27.0
+  firebase_database: ^10.4.9
+
+# Dependências para desenvolvimento (ex.: linter)
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  # Caminho para as imagens do aplicativo (se necessário)
+  # assets:
+  #  - assets/images/
