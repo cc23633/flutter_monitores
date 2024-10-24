@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
               options: CarouselOptions(
                 height: 200.0,
                 enlargeCenterPage: true,
-                viewportFraction: 0.8, // Diminuir o espaço entre os cards
+                viewportFraction: 0.35, // Diminuir o espaço entre os cards
               ),
               items: monitors.map((monitor) {
                 return Builder(
@@ -68,12 +68,12 @@ class HomePage extends StatelessWidget {
                               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 5),
-                            Padding( // Adicionando Padding para espaço entre a borda e a descrição
-                              padding: const EdgeInsets.symmetric(horizontal: 8.0), // Margem lateral
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
                               child: Text(
                                 'Responsável por ajudar os alunos',
                                 style: const TextStyle(fontSize: 14),
-                                textAlign: TextAlign.center, // Centraliza o texto
+                                textAlign: TextAlign.center,
                               ),
                             ),
                           ],
@@ -109,6 +109,7 @@ class MonitorDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Header(),
           Padding(
@@ -116,23 +117,47 @@ class MonitorDetailPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(monitor.avatarUrl),
-                  radius: 60,
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(monitor.avatarUrl),
+                      radius: 60,
+                    ),
+                    const SizedBox(width: 10), // Espaçamento entre a foto e o ícone
+                    Tooltip(
+                      message: 'Essa foto foi autorizada pelo monitor!', // Mensagem que aparece ao passar o mouse
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 80), // Ajusta a posição do ícone para cima
+                        child: const Icon(
+                          Icons.help_outline,
+                          size: 24,
+                          color: Colors.grey, // Mudando a cor para cinza
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 20),
                 Text(
                   'Horários de monitoria:',
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: 10),
                 Text(
                   monitor.schedule,
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context); // Volta para a página anterior
+                  },
+                  child: const Text('Voltar'),
                 ),
               ],
             ),
           ),
+          const Spacer(), // Para empurrar o footer para baixo
           const Footer(),
         ],
       ),
@@ -153,7 +178,7 @@ class Header extends StatelessWidget {
       child: const Text(
         'Cotuca - Monitores DPD 2024.',
         style: TextStyle(color: Colors.white, fontSize: 20),
-        textAlign: TextAlign.center, // Centraliza o texto
+        textAlign: TextAlign.center,
       ),
     );
   }
@@ -172,7 +197,7 @@ class Footer extends StatelessWidget {
       child: const Text(
         'Júlio César Dourado - 2024. RA: 23633.',
         style: TextStyle(color: Colors.white, fontSize: 14),
-        textAlign: TextAlign.center, // Centraliza o texto
+        textAlign: TextAlign.center,
       ),
     );
   }

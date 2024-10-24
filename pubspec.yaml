@@ -8,16 +8,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  carousel_slider: ^4.2.1
-  firebase_core: ^2.27.0
-  firebase_database: ^10.4.9
+  carousel_slider: ^5.0.0            # Atualizado para a última versão
+  firebase_core: ^3.6.0               # Atualizado para a última versão
+  firebase_database: ^11.1.4           # Atualizado para a última versão
 
 # Dependências para desenvolvimento (ex.: linter)
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
-  lints: ^4.0.0
+  flutter_lints: ^4.0.0               # Atualizado para a última versão
+  lints: ^4.0.0                        # Atualizado para a última versão
 
 flutter:
   uses-material-design: true
