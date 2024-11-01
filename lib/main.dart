@@ -20,7 +20,64 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Monitores DPD',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const HomePage(),
+      home: const IntroductionPage(),
+    );
+  }
+}
+
+class IntroductionPage extends StatelessWidget {
+  const IntroductionPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          const Header(),
+          Expanded(
+            child: Center(
+              child: Card(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                margin: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text(
+                        'Bem-vindo ao aplicativo de Monitores do DPD!',
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'A Monitoria é um órgão do colégio voltado para auxiliar os alunos nas aulas e dúvidas.',
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'Cada monitor é selecionado por meio de testes de conhecimento e desempenho.',
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const HomePage()),
+                          );
+                        },
+                        child: const Text('Monitoria'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const Footer(),
+        ],
+      ),
     );
   }
 }
@@ -33,13 +90,13 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          const Header(),
+          const Header(showBackButton: true),
           Expanded(
             child: CarouselSlider(
               options: CarouselOptions(
                 height: 200.0,
                 enlargeCenterPage: true,
-                viewportFraction: 0.35, // Diminuir o espaço entre os cards
+                viewportFraction: 0.35,
               ),
               items: monitors.map((monitor) {
                 return Builder(
@@ -111,7 +168,7 @@ class MonitorDetailPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Header(),
+          const Header(showBackButton: true),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -123,15 +180,15 @@ class MonitorDetailPage extends StatelessWidget {
                       backgroundImage: NetworkImage(monitor.avatarUrl),
                       radius: 60,
                     ),
-                    const SizedBox(width: 10), // Espaçamento entre a foto e o ícone
+                    const SizedBox(width: 10),
                     Tooltip(
-                      message: 'Essa foto foi autorizada pelo monitor!', // Mensagem que aparece ao passar o mouse
+                      message: 'Essa foto foi autorizada pelo monitor!',
                       child: Container(
-                        margin: const EdgeInsets.only(bottom: 80), // Ajusta a posição do ícone para cima
+                        margin: const EdgeInsets.only(bottom: 80),
                         child: const Icon(
                           Icons.help_outline,
                           size: 24,
-                          color: Colors.grey, // Mudando a cor para cinza
+                          color: Colors.grey,
                         ),
                       ),
                     ),
@@ -150,14 +207,14 @@ class MonitorDetailPage extends StatelessWidget {
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context); // Volta para a página anterior
+                    Navigator.pop(context);
                   },
                   child: const Text('Voltar'),
                 ),
               ],
             ),
           ),
-          const Spacer(), // Para empurrar o footer para baixo
+          const Spacer(),
           const Footer(),
         ],
       ),
@@ -165,9 +222,11 @@ class MonitorDetailPage extends StatelessWidget {
   }
 }
 
-// Widget de Header
+// Widget de Header com opção de botão de voltar
 class Header extends StatelessWidget {
-  const Header({super.key});
+  final bool showBackButton;
+
+  const Header({super.key, this.showBackButton = false});
 
   @override
   Widget build(BuildContext context) {
@@ -175,10 +234,26 @@ class Header extends StatelessWidget {
       width: double.infinity,
       color: Colors.blue,
       padding: const EdgeInsets.all(16.0),
-      child: const Text(
-        'Cotuca - Monitores DPD 2024.',
-        style: TextStyle(color: Colors.white, fontSize: 20),
-        textAlign: TextAlign.center,
+      child: Stack(
+        children: [
+          if (showBackButton)
+            Align(
+              alignment: Alignment.centerLeft,
+              child: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+          const Center(
+            child: Text(
+              'Cotuca - Monitores DPD 2024.',
+              style: TextStyle(color: Colors.white, fontSize: 20),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
       ),
     );
   }
